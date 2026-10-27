@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ride-Hailing Concept Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ICON SPRITE -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="i-helmet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.5 15a8.5 8.5 0 0 1 17 0"/><path d="M2.5 15h19v2A2.5 2.5 0 0 1 19 19.5H5A2.5 2.5 0 0 1 2.5 17z"/><path d="M12 6.5V15"/>
+  </symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>
+  </symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 3.5h10a1 1 0 0 1 1 1V21l-6-4.2L6 21V4.5a1 1 0 0 1 1-1z"/>
+  </symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9.5h18"/><path d="M6.5 15h4"/>
+  </symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18.5 16.2V11a6.5 6.5 0 0 0-13 0v5.2L4 18.7h16z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/>
+  </symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 13.5V11a7 7 0 0 1 14 0v2.5"/><rect x="3" y="13.5" width="4" height="6.5" rx="2"/><rect x="17" y="13.5" width="4" height="6.5" rx="2"/><path d="M19 20v.5a2.5 2.5 0 0 1-2.5 2.5H13"/>
+  </symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 8.5A2.5 2.5 0 0 0 5.5 6h13A2.5 2.5 0 0 0 21 8.5v2a2 2 0 0 0 0 4v2a2.5 2.5 0 0 0-2.5 2.5h-13A2.5 2.5 0 0 0 3 16.5v-2a2 2 0 0 0 0-4z"/><path d="M14.5 7.5v9" stroke-dasharray="2.5 2.5"/>
+  </symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.5l7.5 2.8v5.7c0 4.7-3.2 8.4-7.5 10.5-4.3-2.1-7.5-5.8-7.5-10.5V5.3z"/><path d="M8.8 12.2l2.3 2.3 4.2-4.4"/>
+  </symbol>
+  <symbol id="i-coat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.5 3.5L12 5.5l2.5-2 4.5 3.5-2 3.5V20h-10V8.5l-2-3.5z"/><path d="M12 5.5V20"/>
+  </symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3.8L21.5 20.2H2.5z"/><path d="M12 10v4.6"/><circle cx="12" cy="17.4" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 3.6l2.6 5.4 5.9.8-4.3 4.1 1.1 5.8L12 16.9l-5.3 2.8 1.1-5.8-4.3-4.1 5.9-.8z"/>
+  </symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 11.8c0 3.9-3.6 7-8 7-1 0-1.9-.2-2.8-.5L4.8 20.5l1.4-3.3C4.5 15.9 4 13.9 4 11.8c0-3.9 3.6-7 8-7s8 3.1 8 7z"/>
+  </symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.4" r="1.3" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2.5 12S6.2 5.8 12 5.8 21.5 12 21.5 12 17.8 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.1"/>
+  </symbol>
+  <symbol id="i-moto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="5.2" cy="16.4" r="3.4"/><circle cx="18.8" cy="16.4" r="3.4"/><path d="M5.2 16.4l4.3-5.9H15l3.8 5.9"/><path d="M8.8 10.5L7.4 8h3.4"/><path d="M13.5 10.5h3.2"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8.8"/><path d="M8 12.4l2.8 2.8L16.2 9.4"/>
+  </symbol>
+</svg>
+
+<aside class="panel">
+  <h1>Concept Prototype</h1>
+  <p class="sub">Proposed features for a motorcycle ride-hailing app. Academic design proposal, not an official app.</p>
+  <ol class="steps" id="steps">
+    <li data-go="booking"><b>1</b> Booking</li>
+    <li data-go="fare"><b>2</b> Fare Transparency</li>
+    <li data-go="matched"><b>3</b> Biker Matched</li>
+    <li data-go="chat"><b>4</b> In-App Messaging</li>
+    <li data-go="complete"><b>5</b> Dropped Off</li>
+    <li data-go="qr"><b>6</b> Biker shows QR <em>(biker's phone)</em></li>
+    <li data-go="scan"><b>7</b> Passenger scans &amp; pays</li>
+    <li data-go="success"><b>8</b> Payment Confirmation</li>
+    <li data-go="pm"><b>9</b> Payment Methods</li>
+  </ol>
+  <button class="ghost" id="restart">↺ Restart demo</button>
+</aside>
+
+<main class="stage">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="statusbar" id="statusbar"><span id="clock">19:04</span><span>▂▄▆</span></div>
+    <div class="toast" id="toast"></div>
+
+    <!-- DRAWER -->
+    <div class="scrim" id="scrim"></div>
+    <nav class="drawer" id="drawer">
+      <div class="dhead">
+        <svg class="sky" viewBox="0 0 300 150" preserveAspectRatio="none"><circle cx="270" cy="105" r="48" fill="#FFC445"/><path d="M0 150 C80 120 160 150 300 112 L300 150Z" fill="#F4511E"/><g fill="none" stroke="#fff" stroke-width="2" opacity=".8"><path d="M70 150V80h18v70M110 150V60h14v90M150 150V90h22v60"/></g></svg>
+        <div class="dav"><svg class="i"><use href="#i-helmet"/></svg></div>
+        <b>Lance Policarpio ›</b>
+      </div>
+      <ul>
+        <li><svg class="i"><use href="#i-receipt"/></svg>History</li><li><svg class="i"><use href="#i-bookmark"/></svg>Saved Places</li>
+        <li data-go="pm"><svg class="i"><use href="#i-card"/></svg>Payment Methods</li>
+        <li data-go="chat"><svg class="i"><use href="#i-bell"/></svg>Inbox <i class="badge on" id="inboxBadge" style="display:none"></i></li>
+        <li><svg class="i"><use href="#i-headset"/></svg>Support</li>
+      </ul>
+    </nav>
+
+    <!-- 1 BOOKING -->
+    <section class="screen active" id="booking">
+      <div class="map" data-route="0"></div>
+      <button class="fab menu" id="menuBtn" aria-label="menu">☰</button>
+      <button class="reminders">REMINDERS</button>
+      <button class="fab loc-btn" aria-label="locate">◎</button>
+      <div class="sheet">
+        <div class="grab"></div>
+        <div class="card">
+          <div class="loc"><i class="dot blue"></i><span>Sumulong Hwy, Mayamot, Antipolo</span></div>
+          <div class="loc"><i class="pin"></i><span>SM City Masinag, Marcos Hwy</span></div>
+          <div class="chips">
+            <span><i class="ic cash">₱</i>Cash</span><span class="sepv"></span>
+            <span><i class="ic promo"><svg class="i"><use href="#i-ticket"/></svg></i>Promo</span><span class="sepv"></span>
+            <span><i class="ic notes">≡</i>Notes</span>
+          </div>
+        </div>
+        <div class="addons">
+          <div class="ah"><i class="ic shield"><svg class="i"><use href="#i-shield"/></svg></i><div><b>Safety Add-Ons</b><small>Get extra protection during your trip.</small></div><em>See all</em></div>
+          <div class="ab">
+            <button class="addon" id="rainBtn"><span><svg class="i"><use href="#i-coat"/></svg></span><div><b>Rent-A-Raincoat</b><small>₱49.00</small></div><i class="plus" id="rainPlus">+</i></button>
+          </div>
+        </div>
+        <div class="vrow">
+          <div class="vi"><svg class="i"><use href="#i-helmet"/></svg></div><b>Motorcycle <span class="chev">›</span></b><div class="vp bookPrice">₱82.40</div>
+        </div>
+        <button class="primary" data-go="fare">Book</button>
+      </div>
+    </section>
+
+    <!-- 2 FARE -->
+    <section class="screen" id="fare">
+      <header class="bar"><button class="back" data-go="booking">←</button><h2>Fare Breakdown</h2></header>
+      <div class="body">
+        <div class="card flat">
+          <div class="loc"><i class="dot blue"></i><span>Sumulong Hwy, Mayamot</span></div>
+          <div class="loc"><i class="pin"></i><span>SM City Masinag</span></div>
+          <small class="muted">5.2 km · approx. 14 mins</small>
+        </div>
+
+        <div class="alert">
+          <svg class="i"><use href="#i-warn"/></svg>
+          <div><b>Fare adjusted</b><small>From ₱73.00 to <span class="tot">₱82.40</span></small></div>
+          <button id="whyBtn">Why?</button>
+        </div>
+        <div class="why" id="whyBox">
+          <h4>Why did my fare change?</h4>
+          <ul>
+            <li><b>+₱8.00 Rush-hour adjustment.</b> More passengers than available bikers on your route (5–8 PM).</li>
+            <li><b>+₱1.40 Route update.</b> Distance changed from 4.7 km to 5.2 km due to a road closure on Marcos Hwy.</li>
+          </ul>
+          <small>The fare is locked once you confirm. No hidden fees after booking.</small>
+        </div>
+
+        <div class="card flat list" id="fareList"></div>
+        <div class="total"><span>Total fare</span><b id="fareTotal">₱82.40</b></div>
+
+        
+      </div>
+      <div class="foot"><button class="primary" id="confirmBook">Confirm Booking · ₱82.40</button></div>
+    </section>
+
+    <!-- 3 MATCHED -->
+    <section class="screen" id="matched">
+      <div class="map" data-route="1"></div>
+      <button class="fab menu" id="menuBtn2">☰</button>
+      <button class="reminders">SAFETY GUIDE</button>
+      <button class="fab loc-btn">◎</button>
+      <div class="sheet tall">
+        <div class="banner" id="matchBanner">Looking for bikers near you…</div>
+        <div class="rider" id="riderCard">
+          <div class="av">MR</div>
+          <div class="ri"><b>Miguel Reyes</b><small>NCR 4821</small><small>YAMAHA MIO · <svg class="i star"><use href="#i-star"/></svg> 4.9</small></div>
+          <button class="rbtn" data-go="chat" title="Message biker"><svg class="i"><use href="#i-chat"/></svg><i class="badge" id="badge">1</i></button>
+        </div>
+        <div class="privacy"><svg class="i"><use href="#i-lock"/></svg> Chat with your biker inside the app. Your phone number stays private.</div>
+        <div class="promo">
+          <h5>Something for you while you wait <svg class="i"><use href="#i-eye"/></svg></h5>
+          <div class="banner2"><b>PAY AFTER<br>YOUR RIDE</b><span>Walang bayad<br>pag-book</span></div>
+        </div>
+        <div class="vrow"><div class="vi"><svg class="i"><use href="#i-helmet"/></svg></div><b>Motorcycle</b><div class="vp bookPrice">₱82.40</div></div>
+        <button class="primary soft" data-go="complete">Simulate: Arrive at destination</button>
+      </div>
+    </section>
+
+    <!-- 4 CHAT -->
+    <section class="screen" id="chat">
+      <header class="bar"><button class="back" data-go="matched">←</button>
+        <div class="av sm">MR</div>
+        <div class="hd"><b>Miguel Reyes</b><small id="chatStatus">Online · arriving in 4 mins</small></div>
+      </header>
+      <div class="secure"><svg class="i"><use href="#i-lock"/></svg> Messages stay in the app. Phone numbers are hidden from both sides.</div>
+      <div class="msgs" id="msgs"></div>
+      <div class="quick">
+        <button>I'm at the gate</button><button>Please wait 2 mins</button><button>Where are you?</button><button>Thank you!</button>
+      </div>
+      <form class="composer" id="composer">
+        <input id="msgInput" placeholder="Type a message…" autocomplete="off">
+        <button type="submit" aria-label="send">➤</button>
+      </form>
+    </section>
+
+    <!-- 5 DROPPED OFF -->
+    <section class="screen" id="complete">
+      <header class="bar"><h2 style="margin:auto">Trip Completed</h2></header>
+      <div class="body center">
+        <div class="check big">✓</div>
+        <h3>You have arrived!</h3>
+        <p class="muted">SM City Masinag, Marcos Hwy</p>
+        <div class="card flat list full">
+          <div class="line"><span>Biker</span><b>Miguel Reyes</b></div>
+          <div class="line"><span>Distance</span><b>5.2 km</b></div>
+          <div class="line"><span>Duration</span><b>15 mins</b></div>
+          <div class="line"><span>Total to pay</span><b class="blue bigp bookPrice">₱82.40</b></div>
+        </div>
+        <div class="paychoice full">
+          <h5>How would you like to pay?</h5>
+          <div class="opt sel"><i class="ic qr">▦</i><div><b>Scan biker's QR</b><small>Your biker shows a QR. Pay with your own e-wallet or bank app.</small></div><em>Recommended</em></div>
+          <div class="opt" data-go="success" data-cash="1"><i class="ic cash">₱</i><div><b>Cash</b><small>Hand the exact amount to your biker.</small></div></div>
+        </div>
+      </div>
+      <div class="foot"><button class="primary" data-go="qr">Pay via Biker's QR</button></div>
+    </section>
+
+    <!-- 6 BIKER QR -->
+    <section class="screen" id="qr">
+      <header class="bar dark"><h2 style="margin:auto">Biker App · Collect Payment</h2></header>
+      <div class="body center">
+        <span class="tag">Biker's phone (demo view)</span>
+        <p class="muted">Show this QR to the passenger right after drop-off.</p>
+        <div class="amount">Amount to collect<b class="bookPrice">₱82.40</b><small>Passenger: Lance Policarpio</small></div>
+        <div class="qrbox"><div id="qrcode"></div><div class="qrlogo">₱</div></div>
+        <div class="timer">Waiting for payment… <b id="timer">04:59</b></div>
+        <small class="muted">Ref: RHC-20261027-48213 · Demo code, not scannable</small>
+      </div>
+      <div class="foot"><button class="primary" data-go="scan">Next: Passenger scans the QR</button></div>
+    </section>
+
+    <!-- 7 PASSENGER SCAN -->
+    <section class="screen" id="scan">
+      <header class="bar"><button class="back" data-go="qr">←</button><h2>Scan to Pay</h2></header>
+      <div class="cam">
+        <div class="finder"><i></i><i></i><i></i><i></i><div class="line-scan"></div></div>
+        <p>Point your camera at your biker's QR code</p>
+        <button class="ghost light" id="doScan">Simulate: Scan QR</button>
+      </div>
+      <div class="paysheet" id="paySheet">
+        <div class="grab"></div>
+        <h4>QR detected ✓</h4>
+        <div class="line"><span>Pay to</span><b>Miguel Reyes (Biker)</b></div>
+        <div class="line"><span>Amount</span><b class="blue bigp bookPrice">₱82.40</b></div>
+        <div class="line"><span>Pay with</span></div>
+        <div class="wallets"><button class="w on">GCash</button><button class="w">Maya</button><button class="w">GoTyme</button><button class="w">Bank</button></div>
+        <small class="muted">You confirm the payment in your own e-wallet or banking app. We never store your account details.</small>
+        <button class="primary" id="simPay">Pay in e-wallet</button>
+      </div>
+    </section>
+
+    <!-- 8 SUCCESS -->
+    <section class="screen" id="success">
+      <div class="body center success">
+        <div class="check big pop">✓</div>
+        <h3>Payment Successful</h3>
+        <p class="muted">Salamat sa pagsakay! Thank you for riding.</p>
+        <div class="card flat list full">
+          <div class="line"><span>Amount paid</span><b class="blue bigp" id="paidAmt">₱82.40</b></div>
+          <div class="line"><span>Method</span><b id="paidMethod">QR · GCash</b></div>
+          <div class="line"><span>Reference no.</span><b>RHC-48213</b></div>
+          <div class="line"><span>Date</span><b>Oct 27, 2026 · <span id="paidTime">11:13 PM</span></b></div>
+          <div class="line"><span>Biker</span><b>Miguel Reyes</b></div>
+          <div class="line"><span>Status</span><b class="ok">● Paid</b></div>
+        </div>
+      </div>
+      <div class="foot">
+        <button class="primary" id="backHome">Back to Home</button>
+        <button class="ghostbtn">Download receipt</button>
+      </div>
+    </section>
+
+    <!-- PAYMENT METHODS -->
+    <section class="screen" id="pm">
+      <header class="bar"><button class="back" data-go="booking">←</button><h2>Manage Payment Methods</h2></header>
+      <div class="body">
+        <div class="card flat cashcard"><i class="ic cash">₱</i><div><b>Cash</b><em class="def">Default</em></div></div>
+        <div class="card flat cashcard"><i class="ic qr">▦</i><div><b>Pay via Biker's QR</b><em class="def">After drop-off</em></div></div>
+        <h5 class="sec">Digital Wallets</h5>
+        <div class="dashed">+ Link GCash <span class="gcash">G</span></div>
+        <h5 class="sec">Credit/Debit Cards</h5>
+        <div class="dashed">+ Link a Credit/Debit Card <span class="cardlogos"><i class="mc"></i><i class="visa">VISA</i><i class="jcb"><s>J</s><s>C</s><s>B</s></i></span></div>
+        <p class="note">
+          <svg class="shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l7.5 2.8v5.7c0 4.7-3.2 8.4-7.5 10.5-4.3-2.1-7.5-5.8-7.5-10.5V5.3L12 2.5z"/></svg>
+          <span>For security, only link payment methods in your name. Your payment information is securely stored by a trusted third-party platform. We do not have access to your full payment details.</span>
+        </p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
