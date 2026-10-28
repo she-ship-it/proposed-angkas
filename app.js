@@ -147,13 +147,13 @@ function startMatching() {
   matchT = setTimeout(() => {
     $("#matchBanner").textContent = "Your biker will arrive in 4 mins.";
     $("#riderCard").classList.add("show");
-    toast("Biker found", "Miguel Reyes is on the way.", ic("i-moto"));
+    toast("Biker found", "Cedrick Vallestero is on the way.", ic("i-moto"));
     setTimeout(() => {
       if (!chatStarted && !welcomed) {
         welcomed = true;
         addMsg("in", "Good evening po! I'm on my way to your pickup point.");
         unread++; updateBadge();
-        if (current !== "chat") toast("New message", "Miguel Reyes: Good evening po! I'm on my way…", ic("i-chat"));
+        if (current !== "chat") toast("New message", "Cedrick Vallestero: Good evening po! I'm on my way…", ic("i-chat"));
       }
     }, 1800);
   }, 1800);
