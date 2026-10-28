@@ -26,11 +26,52 @@ function renderFare() {
   $("#confirmBook").textContent = `Confirm Booking · ${peso(total)}`;
   $$(".tot, .bookPrice, #paidAmt").forEach(e => e.textContent = peso(total));
 }
-$("#rainBtn").onclick = () => {
-  FARE.raincoat = !FARE.raincoat;
-  $("#rainBtn").classList.toggle("on", FARE.raincoat);
-  $("#rainPlus").textContent = FARE.raincoat ? "✓" : "+";
+function setRain(on) {
+  FARE.raincoat = on;
+  $("#rainBtn").classList.toggle("on", on);
+  $("#rainPlus").textContent = on ? "✓" : "+";
   renderFare();
+}
+$("#rainBtn").onclick = () => setRain(!FARE.raincoat);
+$("#rainYes").onclick = () => { setRain(true); $("#rainingBar").style.display = "none"; };
+$("#rainNo").onclick = () => { $("#rainingBar").style.display = "none"; };
+
+/* ---------- Payment mode (Select Payment Method sheet) ---------- */
+const QR_ICON = `<svg class="i"><use href="#i-qr"/></svg>`;
+const PAY = {
+  cash: { label: "Cash", cls: "ic cash", icon: "₱", chip: "Cash", tag: "Pay your biker", btn: "Confirm Cash Payment",
+    hint: "Hand the exact fare to your biker, then confirm." },
+  qr: { label: "Pay via Biker's QR", cls: "ic qr", icon: QR_ICON, chip: "QR Pay", tag: "After drop-off", btn: "Show Biker's QR",
+    hint: "Your biker will show a QR code. Scan it with your own e-wallet to pay." },
+};
+let pay = "cash", tempPay = "cash";
+function renderPay() {
+  const p = PAY[pay];
+  [["#payIc", "#payLbl"], ["#cmIc"]].forEach(([icSel, lblSel]) => {
+    $(icSel).className = p.cls; $(icSel).innerHTML = p.icon;
+    if (lblSel) $(lblSel).textContent = p.chip;
+  });
+  $("#cmLbl").textContent = p.label; $("#cmTag").textContent = p.tag; $("#cmHint").textContent = p.hint;
+  $("#payNow").textContent = p.btn;
+}
+function markPay() { $$(".pmopt").forEach(o => o.classList.toggle("on", o.dataset.pay === tempPay)); }
+function openPaySheet() {
+  tempPay = pay; markPay();
+  $("#pmScrim").classList.add("on"); $("#pmSheet").classList.add("on");
+  $("#payChip").classList.remove("hint");
+}
+function closePaySheet() { $("#pmScrim").classList.remove("on"); $("#pmSheet").classList.remove("on"); }
+$("#payChip").onclick = openPaySheet;
+$$(".pmopt").forEach(o => o.onclick = () => { tempPay = o.dataset.pay; markPay(); });
+$("#pmScrim").onclick = closePaySheet;
+$("#mpmBtn").onclick = () => { closePaySheet(); go("pm"); };
+$("#payWith").onclick = () => {
+  pay = tempPay; renderPay(); closePaySheet();
+  toast("Payment method set", pay === "qr" ? "You'll pay via your biker's QR after drop-off." : "You'll pay cash after drop-off.", ic("i-card"));
+};
+$("#payNow").onclick = () => {
+  if (pay === "qr") go("qr");
+  else { $("#paidMethod").textContent = "Cash"; showSuccess(); }
 };
 
 /* ---------- Map (SVG) ---------- */
@@ -62,7 +103,7 @@ $$(".map").forEach(m => m.innerHTML = mapSVG(m.dataset.route === "1"));
 let current = "booking", timerId = null;
 function go(id) {
   current = id;
-  closeDrawer();
+  closeDrawer(); closePaySheet();
   $$(".screen").forEach(s => s.classList.toggle("active", s.id === id));
   $$("#steps li").forEach(li => li.classList.toggle("on", li.dataset.go === id));
   $("#paySheet").classList.remove("open");
@@ -77,7 +118,7 @@ document.addEventListener("click", e => {
   go(t.dataset.go);
 });
 $("#confirmBook").onclick = () => go("matched");
-$("#restart").onclick = $("#backHome").onclick = () => { resetChat(); go("booking"); };
+$("#restart").onclick = $("#backHome").onclick = () => { resetChat(); pay = "cash"; renderPay(); $("#payChip").classList.add("hint"); go("booking"); };
 $("#whyBtn").onclick = () => $("#whyBox").classList.toggle("open");
 
 /* drawer */
@@ -213,4 +254,4 @@ function showSuccess() {
 /* ---------- Init ---------- */
 function clock() { $("#clock").textContent = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); }
 clock(); setInterval(clock, 30000);
-renderFare(); go("booking");
+renderFare(); renderPay(); go("booking");
